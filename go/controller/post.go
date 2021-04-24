@@ -1,24 +1,33 @@
 package controller
 
 import (
+	"fmt"
+	"iteatter/domain"
 	"iteatter/infra"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-// func AddPost(c *gin.Context) {
-// 	id := 1 // データベースでautoincrementする？
-// 	title := c.PostForm("title")
-// 	body := c.PostForm("body")
-// 	// store data
-// 	model.Post{
-// 		Id:    id,
-// 		title: title,
-// 		Body:  body,
-// 	}
-//
-// }
+func AddPost(c *gin.Context) {
+	fmt.Println(c.PostForm("title"))
+	fmt.Println(c.PostForm("body"))
+	infra.DbCreate(domain.Post{
+		Title: c.PostForm("title"),
+		Body:  c.PostForm("body"),
+	})
+	c.Redirect(301, "/")
+	// 	id := 1 // データベースでautoincrementする？
+	// 	title := c.PostForm("title")
+	// 	body := c.PostForm("body")
+	// 	// store data
+	// 	model.Post{
+	// 		Id:    id,
+	// 		title: title,
+	// 		Body:  body,
+	// 	}
+	//
+}
 
 func GetPosts(c *gin.Context) {
 	//  select * from posts
