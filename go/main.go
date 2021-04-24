@@ -4,6 +4,7 @@ import (
 	// postgres ドライバ
 
 	"iteatter/controller"
+	"iteatter/route"
 	"iteatter/infra"
 
 	"github.com/gin-contrib/multitemplate"
@@ -68,6 +69,7 @@ func main() {
 	router.GET("/post", func(c *gin.Context) {
 		c.HTML(200, "post", gin.H{})
 	})
+
 	postEngine := router.Group("/posts")
 	{
 		postEngine.POST("/", controller.AddPost)
@@ -76,6 +78,16 @@ func main() {
 		// postEngine.PUT("/:id", controller.UpdateOnePost)
 		// postEngine.DELETE("/:id", controller.DeleteOnePost)
 	}
+
+
+	router.GET("/login", route.Login)
+	router.GET("/signup", route.Signup)
+	user := router.Group("/user")
+	{
+		user.POST("/signup", route.UserSignup)
+		user.POST("/login", route.UserLogin)
+	}
+
 	infra.DbInit()
 	router.Run(":8080")
 }
