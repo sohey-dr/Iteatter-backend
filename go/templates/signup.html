@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-<header>
-    <label><a href="/" methods="GET">TOP</a></label>
-    <label><a href="/login" methods="GET">login</a></label>
-    <label><a href="/signup" methods="GET">signup</a></label>
-</header>
+{{ define "content" }}
 
 {{ range .message }}
     <h2 style="color: red">{{ .message }}</h2>
@@ -30,6 +18,4 @@
         <button type="submit">アカウント作成</button>
     </form>
 </div>
-
-</body>
-</html>
+{{ end }}
