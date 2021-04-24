@@ -3,7 +3,7 @@
     <body>
         <ul>
             {{range .posts}}
-           <li>{{.Title}} - #{{.ID}} - </li>
+            <li><a href="/posts/{{.ID}}">{{.Title}} - #{{.ID}} - </a></li>
             {{end}}
         </ul>
     </body>
