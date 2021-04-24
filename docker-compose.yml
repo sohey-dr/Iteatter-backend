@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   postgres:
     # コンテナの名前
     container_name: postgres
