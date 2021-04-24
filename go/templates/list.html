@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <ul>
+            {{range .posts}}
+            <li>{{.Title}} - #{{.Id}} - from {{.UserFrom}}<li>
+            {{end}}
+        </ul>
+    </body>
+</html>
