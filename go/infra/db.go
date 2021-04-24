@@ -4,8 +4,7 @@ import (
 	"iteatter/config"
 	"iteatter/domain"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"gorm.io/gorm"
 )
 
 func DbInit() *gorm.DB {
@@ -18,13 +17,13 @@ func DbInit() *gorm.DB {
 	return db
 }
 
-func DbCreate(post domain.Post) {
+func DbCreate(post *domain.Post) {
 	db, err := config.OpenDB()
 	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
 		panic("cound not open database")
 	}
-	db.Create(&post)
+	db.Create(post)
 }
 
 func DbRead(id ...int) []domain.Post {
@@ -35,7 +34,6 @@ func DbRead(id ...int) []domain.Post {
 	}
 	var posts []domain.Post
 	db.Find(&posts)
-	db.Close()
 	return posts
 }
 
@@ -47,7 +45,6 @@ func DbReadAll() []domain.Post {
 	}
 	var posts []domain.Post
 	db.Find(&posts)
-	db.Close()
 	return posts
 }
 
@@ -59,7 +56,6 @@ func DbReadOne(id int) domain.Post {
 	}
 	var post domain.Post
 	db.First(&post, id)
-	db.Close()
 	return post
 }
 
@@ -74,7 +70,6 @@ func DbUpdate(id int, title string, body string) domain.Post {
 	post.Title = title
 	post.Body = body
 	db.Save(&post)
-	db.Close()
 	return post
 }
 
@@ -87,5 +82,4 @@ func DbDelete(id int) {
 	var post domain.Post
 	db.First(&post, id)
 	db.Delete(&post)
-	defer db.Close()
 }

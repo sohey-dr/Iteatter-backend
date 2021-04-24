@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 
-	_ "github.com/jinzhu/gorm/dialects/postgres"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"gorm.io/gorm"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/driver/sqlite"
 )
 
 func loadEnv() {
@@ -24,12 +25,12 @@ func OpenDB() (*gorm.DB, error) {
 	dbType := os.Getenv("DB_TYPE")
 	switch dbType {
 	case "sqlite":
-		db, err := gorm.Open("sqlite3", os.Getenv("DB_PATH"))
+		db, err := gorm.Open(sqlite.Open(os.Getenv("DB_PATH")), &gorm.Config{})
 		return db, err
 	case "postgres":
 		connect := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", os.Getenv("DB_HOST"), os.Getenv("DB_PORT"),
 			os.Getenv("DB_USER"), os.Getenv("DB_NAME"), os.Getenv("DB_PASSWORD"))
-		db, err := gorm.Open("postgres", connect)
+		db, err := gorm.Open(postgres.Open(connect), &gorm.Config{})
 		return db, err
 	default:
 		err := fmt.Errorf("invalid variable 'DB_TYPE'=%s", dbType)
