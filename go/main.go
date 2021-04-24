@@ -2,9 +2,9 @@ package main
 
 import (
 	// postgres ドライバ
-	"fmt"
+
 	"iteatter/controller"
-	"iteatter/model"
+	"iteatter/route"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -12,12 +12,14 @@ import (
 
 // メイン関数
 func main() {
-	rooter := gin.Default()
-	rooter.LoadHTMLGlob("templates/*.html")
-	rooter.GET("/", func(c *gin.Context) {
+	router := gin.Default()
+	router.LoadHTMLGlob("templates/*.html")
+	router.GET("/", func(c *gin.Context) {
 		c.HTML(200, "index.html", gin.H{})
 	})
-	postEngine := rooter.Group("/posts")
+
+
+	postEngine := router.Group("/posts")
 	{
 		// postEngine.POST("/", controller.AddPost)
 		postEngine.GET("/", controller.GetPosts)
@@ -25,5 +27,15 @@ func main() {
 		// postEngine.PUT("/:id", controller.UpdateOnePost)
 		// postEngine.DELETE("/:id", controller.DeleteOnePost)
 	}
-	rooter.Run(":8080")
+
+
+	router.GET("/login", route.Login)
+	router.GET("/signup", route.Signup)
+	user := router.Group("/user")
+	{
+		user.POST("/signup", route.UserSignup)
+		user.POST("/login", route.UserLogin)
+	}
+
+	router.Run(":8080")
 }
