@@ -21,7 +21,7 @@ func UserSignup(ctx *gin.Context) {
 	fmt.Println("password: " + password)
 	fmt.Println("passwordConf: " + passwordConf)
 
-	//usernameが既に使われていないか確認
+	//usernameが既に使われていないか確
 	u := model.UserAlredy(username)
 	if u != "" {
 		fmt.Println("そのusernameは既に登録されています")
@@ -36,7 +36,7 @@ func UserSignup(ctx *gin.Context) {
 	fmt.Println(hash)
 
 	//登録
-	//db.UserInsert(username, hash)
+	model.UserInsert(username, hash)
 	ctx.Redirect(302, "/")
 }
 

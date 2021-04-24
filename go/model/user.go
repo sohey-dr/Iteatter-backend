@@ -42,8 +42,8 @@ func UserAlredy(name string) string {
 	var user User
 	db.Where("name = ?", name).Find(&user)
 	db.Close()
-	name := user.Name
-	return name
+	userName := user.Name
+	return userName
 }
 
 //nameとpasswordが正しいか検証
