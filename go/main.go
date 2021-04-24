@@ -2,7 +2,9 @@ package main
 
 import (
 	// postgres ドライバ
+
 	"iteatter/controller"
+	"iteatter/infra"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -61,5 +63,6 @@ func main() {
 		// postEngine.PUT("/:id", controller.UpdateOnePost)
 		// postEngine.DELETE("/:id", controller.DeleteOnePost)
 	}
+	infra.DbInit()
 	rooter.Run(":8080")
 }
