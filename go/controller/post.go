@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"iteatter/domain"
 	"iteatter/infra"
 	"strconv"
@@ -9,11 +10,15 @@ import (
 )
 
 func AddPost(c *gin.Context) {
-	infra.DbCreate(domain.Post{
+	post := domain.Post{
 		Title: c.PostForm("title"),
 		Body:  c.PostForm("body"),
-	})
-	c.Redirect(301, "/")
+	}
+	infra.DbCreate(&post)
+	dst := fmt.Sprintf("/posts/%d", post.ID)
+	fmt.Println(dst)
+	fmt.Println(post.ID)
+	c.Redirect(301, dst)
 }
 
 func GetPosts(c *gin.Context) {
