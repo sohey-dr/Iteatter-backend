@@ -38,6 +38,17 @@ func DbRead(id ...int) []domain.Post {
 	return posts
 }
 
+func DbReadAll() []domain.Post {
+	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
+	db, err := gorm.Open("sqlite3", "sample.db")
+	if err != nil {
+		fmt.Errorf("cound not open database")
+	}
+	var posts []domain.Post
+	db.Find(&posts)
+	return posts
+}
+
 func DbReadOne(id int) domain.Post {
 	db, err := gorm.Open("sqlite3", "sample.db")
 	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")

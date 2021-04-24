@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"iteatter/model"
+	"iteatter/infra"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -23,16 +23,17 @@ import (
 func GetPosts(c *gin.Context) {
 	//  select * from posts
 	// posts := []string{"taro", "jiro", "ichiro"}
-	posts := []model.Post{}
-	user1 := model.Post{
-		Id:       1,
-		Title:    "this is title",
-		Body:     "hey\nim john",
-		UserFrom: 100,
-	}
-	posts = append(posts, user1)
-	posts = append(posts, user1)
-	posts = append(posts, user1)
+	posts := infra.DbReadAll()
+	// posts := []model.Post{}
+	// user1 := model.Post{
+	// 	Id:       1,
+	// 	Title:    "this is title",
+	// 	Body:     "hey\nim john",
+	// 	UserFrom: 100,
+	// }
+	// posts = append(posts, user1)
+	// posts = append(posts, user1)
+	// posts = append(posts, user1)
 	c.HTML(200, "list.html", gin.H{
 		"posts": posts,
 	})
@@ -43,11 +44,12 @@ func GetOnePost(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 	}
-	post := model.Post{
-		Id:    id,
-		Title: "this is title",
-		Body:  "hey\nim john",
-	}
+	post := infra.DbReadOne(id)
+	// post := model.Post{
+	// 	Id:    id,
+	// 	Title: "this is title",
+	// 	Body:  "hey\nim john",
+	// }
 	c.HTML(200, "show.html", gin.H{
 		"post": post,
 	})
