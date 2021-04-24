@@ -58,6 +58,7 @@ func main() {
 	rooter.GET("/post", func(c *gin.Context) {
 		c.HTML(200, "post.html", gin.H{})
 	})
+	rooter.POST("/posts", controller.AddPost)
 	postEngine := rooter.Group("/posts")
 	{
 		// postEngine.POST("/", controller.AddPost)
