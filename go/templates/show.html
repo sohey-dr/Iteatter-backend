@@ -1,4 +1,4 @@
-<h1>{{.post.Title}} - #{{.post.Id}}</h1>
+{{ define "content" }}
+<h1>{{.post.Title}} - #{{.post.ID}}</h1>
 <p>{{.post.Body}}</p>
-
-<p>from {{.post.UserFrom}}</p>
+{{ end }}
