@@ -4,8 +4,8 @@ import (
 	// postgres ドライバ
 
 	"iteatter/controller"
-	"iteatter/route"
 	"iteatter/infra"
+	"iteatter/route"
 
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
@@ -24,6 +24,8 @@ func createRender() multitemplate.Renderer {
 	r.AddFromFiles("list", "templates/base.html", "templates/list.html")
 	r.AddFromFiles("post", "templates/base.html", "templates/post.html")
 	r.AddFromFiles("show", "templates/base.html", "templates/show.html")
+	r.AddFromFiles("login", "templates/base.html", "templates/login.html")
+	r.AddFromFiles("signup", "templates/base.html", "templates/signup.html")
 	return r
 }
 
@@ -78,7 +80,6 @@ func main() {
 		// postEngine.PUT("/:id", controller.UpdateOnePost)
 		// postEngine.DELETE("/:id", controller.DeleteOnePost)
 	}
-
 
 	router.GET("/login", route.Login)
 	router.GET("/signup", route.Signup)
