@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <ul>
-            {{range .posts}}
-            <li><a href="/posts/{{.ID}}">{{.Title}} - #{{.ID}} - </a></li>
-            {{end}}
-        </ul>
-    </body>
-</html>
+{{ define "content" }}
+<h2>一覧画面</h2>
+<ul>
+    {{range .posts}}
+    <li><a href="/posts/{{.ID}}">{{.Title}} - #{{.ID}} - </a></li>
+    {{end}}
+</ul>
+{{ end }}

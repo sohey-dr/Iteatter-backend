@@ -6,6 +6,7 @@ import (
 	"iteatter/controller"
 	"iteatter/infra"
 
+	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
@@ -14,6 +15,15 @@ import (
 type TestUser struct {
 	UserID   int
 	Password string
+}
+
+func createRender() multitemplate.Renderer {
+	r := multitemplate.NewRenderer()
+	r.AddFromFiles("index", "templates/base.html", "templates/index.html")
+	r.AddFromFiles("list", "templates/base.html", "templates/list.html")
+	r.AddFromFiles("post", "templates/base.html", "templates/post.html")
+	r.AddFromFiles("show", "templates/base.html", "templates/show.html")
+	return r
 }
 
 // メイン関数
@@ -50,12 +60,15 @@ func main() {
 	// // 検索結果の表示
 	// fmt.Println(testUser.UserID, testUser.Password)
 
-	rooter := gin.Default()
-	rooter.LoadHTMLGlob("templates/*.html")
-	rooter.GET("/", func(c *gin.Context) {
-		c.HTML(200, "index.html", gin.H{})
+	router := gin.Default()
+	router.HTMLRender = createRender()
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(200, "index", gin.H{})
 	})
-	postEngine := rooter.Group("/posts")
+	router.GET("/post", func(c *gin.Context) {
+		c.HTML(200, "post", gin.H{})
+	})
+	postEngine := router.Group("/posts")
 	{
 		postEngine.POST("/", controller.AddPost)
 		postEngine.GET("/", controller.GetPosts)
@@ -64,5 +77,5 @@ func main() {
 		// postEngine.DELETE("/:id", controller.DeleteOnePost)
 	}
 	infra.DbInit()
-	rooter.Run(":8080")
+	router.Run(":8080")
 }
