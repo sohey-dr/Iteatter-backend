@@ -28,8 +28,8 @@ func OpenDB() (*gorm.DB, error) {
 		db, err := gorm.Open(sqlite.Open(os.Getenv("DB_PATH")), &gorm.Config{})
 		return db, err
 	case "postgres":
-		connect := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s", os.Getenv("DB_HOST"), os.Getenv("DB_PORT"),
-			os.Getenv("DB_USER"), os.Getenv("DB_NAME"), os.Getenv("DB_PASSWORD"))
+		connect := fmt.Sprintf("host=%s port=%s user=%s dbname=%s", os.Getenv("DB_HOST"), os.Getenv("DB_PORT"),
+			os.Getenv("DB_USER"), os.Getenv("DB_NAME"))
 		db, err := gorm.Open(postgres.Open(connect), &gorm.Config{})
 		return db, err
 	default:
