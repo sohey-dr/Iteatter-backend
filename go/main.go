@@ -4,6 +4,7 @@ import (
 	"iteatter/controller"
 	"iteatter/infra"
 	"iteatter/route"
+	"github.com/gin-contrib/cors"
 
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-contrib/sessions"
@@ -29,6 +30,10 @@ func main() {
 	router.HTMLRender = createRender()
 	store := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
+	router.Use(cors.New(config))
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(200, "index", gin.H{})
