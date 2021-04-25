@@ -2,15 +2,15 @@ package controller
 
 import (
 	"fmt"
-	"iteatter/domain"
 	"iteatter/infra"
+	"iteatter/model"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 func AddPost(c *gin.Context) {
-	post := domain.Post{
+	post := model.Post{
 		Title: c.PostForm("title"),
 		Body:  c.PostForm("body"),
 	}
