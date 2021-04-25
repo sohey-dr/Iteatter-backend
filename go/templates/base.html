@@ -17,15 +17,14 @@
             </a>
             <nav>
                 <ul>
-                    <li>
-                        <a href="/post">投稿する</a>
-                    </li>
-                    <li>
-                        <a href="/posts">投稿を見る</a>
-                    </li>
+                    <li><a href="/post" methods="GET">投稿する</a></li>
+                    <li><a href="/posts" methods="GET">投稿を見る</a></li>
+                    <li><a href="/login" methods="GET">login</a></li>
+                    <li><a href="/signup" methods="GET">signup</a></li>
                 </ul>
             </nav>
         </header>
+    </div>
 
         {{template "content" .}}
 
@@ -35,13 +34,5 @@
     </div>
 </body>
 
-</html>
-<!-- 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>Sample App</title>
-</head>
 
-</html> -->
+</html>

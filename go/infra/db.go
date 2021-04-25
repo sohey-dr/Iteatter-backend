@@ -1,72 +1,71 @@
 package infra
 
 import (
-	"fmt"
-	"iteatter/domain"
+	"iteatter/config"
+	"iteatter/model"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"gorm.io/gorm"
 )
 
 func DbInit() *gorm.DB {
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
-	db, err := gorm.Open("sqlite3", "sample.db")
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("cound not open database")
+		panic("cound not open database")
 	}
-	db.AutoMigrate(&domain.Post{})
+	db.AutoMigrate(&model.Post{})
 	return db
 }
 
-func DbCreate(post domain.Post) {
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
-	db, err := gorm.Open("sqlite3", "sample.db")
+func DbCreate(post *model.Post) {
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("cound not open database")
+		panic("cound not open database")
 	}
-	db.Create(&post)
+	db.Create(post)
 }
 
-func DbRead(id ...int) []domain.Post {
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
-	db, err := gorm.Open("sqlite3", "sample.db")
+func DbRead(id ...int) []model.Post {
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("cound not open database")
+		panic("cound not open database")
 	}
-	var posts []domain.Post
+	var posts []model.Post
 	db.Find(&posts)
 	return posts
 }
 
-func DbReadAll() []domain.Post {
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
-	db, err := gorm.Open("sqlite3", "sample.db")
+func DbReadAll() []model.Post {
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("cound not open database")
+		panic("cound not open database")
 	}
-	var posts []domain.Post
+	var posts []model.Post
 	db.Find(&posts)
 	return posts
 }
 
-func DbReadOne(id int) domain.Post {
-	db, err := gorm.Open("sqlite3", "sample.db")
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
+func DbReadOne(id int) model.Post {
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("cound not open database")
+		panic("cound not open database")
 	}
-	var post domain.Post
+	var post model.Post
 	db.First(&post, id)
 	return post
 }
 
-func DbUpdate(id int, title string, body string) domain.Post {
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
-	db, err := gorm.Open("sqlite3", "sample.db")
+func DbUpdate(id int, title string, body string) model.Post {
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("cound not open database")
+		panic("cound not open database")
 	}
-	var post domain.Post
+	var post model.Post
 	db.First(&post, id)
 	post.Title = title
 	post.Body = body
@@ -75,12 +74,12 @@ func DbUpdate(id int, title string, body string) domain.Post {
 }
 
 func DbDelete(id int) {
-	// db, err := gorm.Open("postgres", "host=postgres user=app_user password=passwoerd dbname=app_db sslmode=disable")
-	db, err := gorm.Open("sqlite3", "sample.db")
+	db, err := config.OpenDB()
+	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
-		fmt.Errorf("could not open database")
+		panic("could not open database")
 	}
-	var post domain.Post
+	var post model.Post
 	db.First(&post, id)
 	db.Delete(&post)
 }
