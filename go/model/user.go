@@ -1,6 +1,8 @@
 package model
 
 import (
+	"log"
+	"databese/sql"
 	"iteatter/helper"
 	"github.com/jinzhu/gorm"
 
@@ -56,3 +58,15 @@ func UserCheck(name string, password string) error {
 	err := helper.PasswordValid(user.Password, password)
 	return err
 }
+
+//nameとpasswordが正しいか検証
+func SearchUserid(name string) int {
+	db := dbOpen()
+	var id int
+
+	if err := db.QueryRow("SELECT name FROM person WHERE id = ?LIMIT 1", name).Scan(&id); err != nil {
+			log.Fatal(err)
+	}
+	return id
+}
+

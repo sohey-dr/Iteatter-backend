@@ -53,7 +53,8 @@ func UserLogin(ctx *gin.Context) {
 	if err == nil {
 		fmt.Println("ログイン成功！！！！")
 		session := sessions.Default(ctx)
-    session.Set("UserId", 1)
+		userId := model.SearchUserid(username)
+    session.Set("UserId", userId)
     session.Save()
 		ctx.Redirect(302, "/")
 	} else {
