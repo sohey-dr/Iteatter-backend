@@ -40,10 +40,18 @@ func main() {
 	postEngine := router.Group("/posts")
 	{
 		postEngine.POST("/", controller.AddPost)
+		// postEngine.POST("/", controller.AddPost())
 		postEngine.GET("/", controller.GetPosts)
 		postEngine.GET("/:id", controller.GetOnePost)
 		// postEngine.PUT("/:id", controller.UpdateOnePost)
 		// postEngine.DELETE("/:id", controller.DeleteOnePost)
+	}
+
+	apiEngine := router.Group("/api")
+	{
+		apiEngine.POST("/", controller.ApiAddPost)
+		apiEngine.GET("/", controller.ApiGetPosts)
+		apiEngine.GET("/:id", controller.ApiGetOnePost)
 	}
 
 	router.GET("/login", route.Login)
