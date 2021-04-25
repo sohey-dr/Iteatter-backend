@@ -3,7 +3,7 @@
 
 <form method="POST" action="/posts" enctype="multipart/form-data">
     <input id="title" type="text" name="title" placeholder="Title" pattern=".*\S+.*" required>
-    <input id="body" type="text" name="body" placeholder="Body" pattern=".*\S+.*" required>
+    <textarea id="body" type="text" name="body" placeholder="Body" pattern=".*\S+.*" rows="5" required></textarea>
     <input type="submit" value="送信する">
     <input type="reset" value="取消する">
 </form>
