@@ -5,6 +5,7 @@ import (
 	"iteatter/model"
 	"iteatter/helper"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -51,11 +52,14 @@ func UserLogin(ctx *gin.Context) {
 	err := model.UserCheck(username, password)
 	if err == nil {
 		fmt.Println("ログイン成功！！！！")
+		session := sessions.Default(ctx)
+    session.Set("UserId", 1)
+    session.Save()
 		ctx.Redirect(302, "/")
 	} else {
 		fmt.Println("失敗！！！！！！")
 
-		ctx.HTML(200, "login.html", gin.H{"message": "username または password が違います"})
+		ctx.HTML(200, "login", gin.H{"message": "username または password が違います"})
 	}
 
 }
