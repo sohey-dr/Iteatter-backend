@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/gin-contrib/multitemplate v0.0.0-20200916052041-666a7309d230
+	github.com/gin-contrib/sessions v0.0.3
 	github.com/gin-gonic/gin v1.7.1
 	github.com/go-playground/validator/v10 v10.5.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
