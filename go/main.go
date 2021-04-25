@@ -64,6 +64,7 @@ func main() {
 	// fmt.Println(testUser.UserID, testUser.Password)
 
 	router := gin.Default()
+	router.Static("/assets", "./assets")
 	router.HTMLRender = createRender()
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(200, "index", gin.H{})
