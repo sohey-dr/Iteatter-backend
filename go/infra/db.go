@@ -2,7 +2,7 @@ package infra
 
 import (
 	"iteatter/config"
-	"iteatter/domain"
+	"iteatter/model"
 
 	"gorm.io/gorm"
 )
@@ -13,11 +13,11 @@ func DbInit() *gorm.DB {
 	if err != nil {
 		panic("cound not open database")
 	}
-	db.AutoMigrate(&domain.Post{})
+	db.AutoMigrate(&model.Post{})
 	return db
 }
 
-func DbCreate(post *domain.Post) {
+func DbCreate(post *model.Post) {
 	db, err := config.OpenDB()
 	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
@@ -26,46 +26,46 @@ func DbCreate(post *domain.Post) {
 	db.Create(post)
 }
 
-func DbRead(id ...int) []domain.Post {
+func DbRead(id ...int) []model.Post {
 	db, err := config.OpenDB()
 	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
 		panic("cound not open database")
 	}
-	var posts []domain.Post
+	var posts []model.Post
 	db.Find(&posts)
 	return posts
 }
 
-func DbReadAll() []domain.Post {
+func DbReadAll() []model.Post {
 	db, err := config.OpenDB()
 	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
 		panic("cound not open database")
 	}
-	var posts []domain.Post
+	var posts []model.Post
 	db.Find(&posts)
 	return posts
 }
 
-func DbReadOne(id int) domain.Post {
+func DbReadOne(id int) model.Post {
 	db, err := config.OpenDB()
 	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
 		panic("cound not open database")
 	}
-	var post domain.Post
+	var post model.Post
 	db.First(&post, id)
 	return post
 }
 
-func DbUpdate(id int, title string, body string) domain.Post {
+func DbUpdate(id int, title string, body string) model.Post {
 	db, err := config.OpenDB()
 	// db, err := gorm.Open("sqlite3", "sample.db")
 	if err != nil {
 		panic("cound not open database")
 	}
-	var post domain.Post
+	var post model.Post
 	db.First(&post, id)
 	post.Title = title
 	post.Body = body
@@ -79,7 +79,7 @@ func DbDelete(id int) {
 	if err != nil {
 		panic("could not open database")
 	}
-	var post domain.Post
+	var post model.Post
 	db.First(&post, id)
 	db.Delete(&post)
 }

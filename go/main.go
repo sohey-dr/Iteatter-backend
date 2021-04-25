@@ -25,6 +25,7 @@ func createRender() multitemplate.Renderer {
 
 func main() {
 	router := gin.Default()
+	router.Static("/assets", "./assets")
 	router.HTMLRender = createRender()
 	store := cookie.NewStore([]byte("secret"))
 	router.Use(sessions.Sessions("mysession", store))

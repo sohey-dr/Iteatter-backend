@@ -1,0 +1,12 @@
+.box3 {
+    text-align: center;
+    padding: 0.5em 1em;
+    margin: 2em 15em;
+    color: #5d627b;
+    background: white;
+    border-top: solid 5px #5d627b;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+}
+ul {
+    margin: 0 10em;
+}
