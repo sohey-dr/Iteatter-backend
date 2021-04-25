@@ -16,8 +16,6 @@ func AddPost(c *gin.Context) {
 	}
 	infra.DbCreate(&post)
 	dst := fmt.Sprintf("/posts/%d", post.ID)
-	fmt.Println(dst)
-	fmt.Println(post.ID)
 	c.Redirect(301, dst)
 }
 
@@ -26,6 +24,10 @@ func GetPosts(c *gin.Context) {
 	c.HTML(200, "list", gin.H{
 		"posts": posts,
 	})
+}
+
+type error struct {
+	Text string
 }
 
 func GetOnePost(c *gin.Context) {
