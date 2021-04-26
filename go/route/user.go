@@ -52,11 +52,11 @@ func UserLogin(ctx *gin.Context) {
 	err := model.UserCheck(username, password)
 	if err == nil {
 		fmt.Println("ログイン成功！！！！")
-		session := sessions.Default(ctx)
-		userId := model.SearchUserid(username)
-    session.Set("UserId", userId)
-    session.Save()
-		ctx.Redirect(302, "/")
+		// session := sessions.Default(ctx)
+		// userId := model.SearchUserid(username)
+    // session.Set("UserId", userId)
+    // session.Save()
+		// ctx.Redirect(302, "/")
 	} else {
 		fmt.Println("失敗！！！！！！")
 
