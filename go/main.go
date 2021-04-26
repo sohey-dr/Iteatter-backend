@@ -32,7 +32,7 @@ func main() {
 	router.Use(sessions.Sessions("mysession", store))
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:3000"}
+	config.AllowOrigins = []string{"https://iteatter.herokuapp.com", "http://localhost:3000"}
 	router.Use(cors.New(config))
 
 	router.GET("/", func(c *gin.Context) {
